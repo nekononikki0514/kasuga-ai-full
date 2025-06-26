@@ -1,7 +1,7 @@
 // pages/api/chat.js
 
 import { createClient } from '@supabase/supabase-js';
-import { reply } from '@/lib/reply';
+import { reply } from '../../lib/reply';
 
 const supabase = createClient(
   process.env.SUPABASE_BASE_URL,
