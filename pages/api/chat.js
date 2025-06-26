@@ -1,38 +1,36 @@
-import { supabase } from '../../lib/supabaseClient';
-import OpenAI from 'openai';
+// pages/api/chat.js
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { createClient } from '@supabase/supabase-js';
+import { reply } from '@/lib/reply';
+
+const supabase = createClient(
+  process.env.SUPABASE_BASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY
+);
 
 export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
   const { userId, message } = req.body;
+  if (!userId || !message) return res.status(400).json({ error: 'Missing userId or message' });
 
-  const { data: history } = await supabase
-    .from('history')
-    .select('role, content')
-    .eq('userid', userId)
-    .order('created_at', { ascending: false })
-    .limit(10);
+  // 擷取最近記憶
+  const { data: memoryData } = await supabase
+    .from('memory_interactions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('timestamp', { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  const messages = (history || []).reverse().map(h => ({
-    role: h.role,
-    content: h.content
-  }));
+  const context = memoryData?.content || '';
+  const related = memoryData?.target || '';
 
-  messages.push({ role: 'user', content: message });
-
-  const gptRes = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
-    messages,
-    temperature: 0.85
+  const text = reply({
+    topic: message,
+    context,
+    related
   });
 
-  const reply = gptRes.choices[0].message.content.trim();
-
-  await supabase.from('history').insert([
-    { userid: userId, role: 'user', content: message },
-    { userid: userId, role: 'assistant', content: reply }
-  ]);
-
-  res.status(200).json({ reply });
+  return res.status(200).json({ text });
 }
-
