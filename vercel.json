@@ -1,24 +1,4 @@
 {
-  "cron": [
-    {
-      "path": "/api/push/greeting",
-      "schedule": "0 9 * * *",
-      "enabled": true
-    },
-    {
-      "path": "/api/push/x",
-      "schedule": "0 20 * * *",
-      "enabled": true
-    },
-    {
-      "path": "/api/push/event",
-      "schedule": "0 12 * * *",
-      "enabled": true
-    },
-    {
-      "path": "/api/push/memory",
-      "schedule": "30 18 * * *",
-      "enabled": true
-    }
-  ]
+  "version": 2
 }
+
