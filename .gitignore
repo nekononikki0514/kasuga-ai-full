@@ -1,5 +1,8 @@
-node_modules
-.env
-memory/*.json
-# 排除本機機密環境設定
 .env.local
+node_modules
+.next
+.DS_Store
+*.bak
+kasuga-ai-xpush-supabase-memory.zip
+kasuga-ai-final-with-env-and-ignore.zip
+
