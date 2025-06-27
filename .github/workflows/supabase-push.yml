@@ -1,0 +1,42 @@
+name: Supabase Push Scheduler
+
+on:
+  schedule:
+    # 台灣時間 09:00（UTC+8 → UTC 01:00）
+    - cron: '0 1 * * *'
+    # 台灣時間 12:00（UTC+8 → UTC 04:00）
+    - cron: '0 4 * * *'
+    # 台灣時間 18:00（UTC+8 → UTC 10:00）
+    - cron: '0 10 * * *'
+    # 台灣時間 21:00（UTC+8 → UTC 13:00）
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  push-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Push Greeting (09:00)
+        if: github.event.schedule == '0 1 * * *'
+        run: |
+          curl -X POST "https://https://izkinhvyuxlbbhhcyfjs.supabase.co/functions/v1/push-greeting" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_FUNCTION_KEY }}"
+
+      - name: Push Event (12:00)
+        if: github.event.schedule == '0 4 * * *'
+        run: |
+          curl -X POST "https://https://izkinhvyuxlbbhhcyfjs.supabase.co/functions/v1/push-event" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_FUNCTION_KEY }}"
+
+      - name: Push Memory (18:00)
+        if: github.event.schedule == '0 10 * * *'
+        run: |
+          curl -X POST "https://https://izkinhvyuxlbbhhcyfjs.supabase.co/functions/v1/push-memory" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_FUNCTION_KEY }}"
+
+      - name: Push X (21:00)
+        if: github.event.schedule == '0 13 * * *'
+        run: |
+          curl -X POST "https://https://izkinhvyuxlbbhhcyfjs.supabase.co/functions/v1/push-x" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_FUNCTION_KEY }}"
+
