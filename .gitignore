@@ -1,0 +1,5 @@
+node_modules
+.env
+memory/*.json
+# 排除本機機密環境設定
+.env.local
