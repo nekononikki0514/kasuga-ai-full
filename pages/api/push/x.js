@@ -1,6 +1,6 @@
-import { fetchLatestXPosts } from '../../lib/xFetcher';
-import { futureNarration } from '../../lib/futureNarration';
-import { sendLineMessage } from '../../lib/line';
+import { fetchLatestXPosts } from '../../../lib/xFetcher';
+import { futureNarration } from '../../../lib/futureNarration';
+import { sendLineMessage } from '../../../lib/line';
 
 export default async function handler(req, res) {
   const userId = process.env.LINE_USER_ID || 'nekononikki';

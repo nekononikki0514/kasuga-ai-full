@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { sendLineMessage } from '../../lib/line';
+import { sendLineMessage } from '../../../lib/line';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,

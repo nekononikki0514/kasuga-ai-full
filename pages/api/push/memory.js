@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { Configuration, OpenAIApi } from 'openai';
-import { sendLineMessage } from '../../lib/line';
+import { sendLineMessage } from '../../../lib/line';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
