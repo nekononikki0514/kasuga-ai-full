@@ -1,5 +1,5 @@
-import { supabase } from '../../../lib/supabaseClient';
-import { reply } from '../../../lib/reply';
+import { supabase } from '../../lib/supabaseClient';
+import { reply } from '../../lib/reply';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
