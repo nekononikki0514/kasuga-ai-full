@@ -38,6 +38,7 @@ export default async function handler(req, res) {
   }
 
   const text = reply({
+    user: '製作人',
     topic: message,
     context,
     related,
