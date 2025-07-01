@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       affinity = characterData.affinity;
     }
   }
-
+console.log("✅ 進入 chat.js，收到訊息：", message);
   const text = reply({
     user: '製作人',
     topic: message,
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     related,
     affinity
   });
-
+console.log("✅ reply() 輸出為：", text);
   return res.status(200).json({ text });
 }
 
